@@ -27,7 +27,7 @@ public class UserController {
         }
 
         if (createdUser == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
