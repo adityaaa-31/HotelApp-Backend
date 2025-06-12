@@ -1,41 +1,52 @@
 package com.example.restapp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.restapp.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.restapp.model.User;
 import com.example.restapp.service.UserService;
 
+import java.util.Optional;
+
 @RestController
+@RequestMapping("api/auth")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
-    @PostMapping("/sign-up")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = null;
+    private UserRepository userRepository;
 
-        if (validateUser(user)) {
-            createdUser = userService.createUser(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        if (createdUser == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-
+    public UserController(UserService userService, UserRepository userRepository) {
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
-    private boolean validateUser(User user) {
-        return (user.getEmail() != null || user.getName() != null || user.getPassword() != null);
+    @PostMapping("/sign-up")
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
+
+        try {
+            Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+
+            if(existingUser.isPresent()) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("User Already Exists!");
+            }
+
+            userService.createUser(user);
+
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(("User created successfully"));
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Something went wrong!");
+        }
     }
 
 }
