@@ -13,13 +13,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/auth")
-public class UserController {
+public class AuthController {
 
     private UserService userService;
 
     private UserRepository userRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public AuthController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
     }
