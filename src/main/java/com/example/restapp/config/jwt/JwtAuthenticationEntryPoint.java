@@ -1,4 +1,4 @@
-package com.example.restapp.Config.jwt;
+package com.example.restapp.config.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

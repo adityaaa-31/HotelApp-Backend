@@ -1,4 +1,4 @@
-package com.example.restapp.Config;
+package com.example.restapp.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

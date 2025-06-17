@@ -1,4 +1,4 @@
-package com.example.restapp.Config.jwt;
+package com.example.restapp.config.jwt;
 
 import com.example.restapp.model.User;
 import io.jsonwebtoken.Claims;

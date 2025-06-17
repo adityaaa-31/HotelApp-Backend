@@ -1,7 +1,7 @@
-package com.example.restapp.Config;
+package com.example.restapp.config;
 
-import com.example.restapp.Config.jwt.JwtAuthenticationEntryPoint;
-import com.example.restapp.Config.jwt.JwtAuthenticationFilter;
+import com.example.restapp.config.jwt.JwtAuthenticationEntryPoint;
+import com.example.restapp.config.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
