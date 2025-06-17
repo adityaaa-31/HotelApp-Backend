@@ -1,4 +1,4 @@
-package com.example.restapp.Config;
+package com.example.restapp.Config.jwt;
 
 import com.example.restapp.model.User;
 import com.example.restapp.service.UserService;
