@@ -1,14 +1,17 @@
 package com.example.restapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.restapp.model.User;
 import com.example.restapp.repository.UserRepository;
+import java.util.Collections;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -17,8 +20,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User loadByUsername(String username) {
-        return userRepository.findByUsername(username)
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user =  userRepository.findByName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with email " + username + " not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
     }
 }
