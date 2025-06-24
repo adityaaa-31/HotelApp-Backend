@@ -1,10 +1,10 @@
 package com.example.restapp.config.jwt;
 
-import com.example.restapp.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,17 +19,17 @@ public class JwtUtil {
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
-                .setSubject(user.getName())
+                .setSubject(userDetails.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(Keys.hmacShaKeyFor(secretKey.getEncoded()))
                 .compact();
     }
 
-    public boolean validateToken(String token, User user) {
+    public boolean validateToken(String token, UserDetails userDetails) {
         Claims claims = extractClaims(token);
-        return (claims.getSubject().equals(user.getName()) && 
+        return (claims.getSubject().equals(userDetails.getUsername()) &&
                 !claims.getExpiration().before(new Date()));
     }
 
