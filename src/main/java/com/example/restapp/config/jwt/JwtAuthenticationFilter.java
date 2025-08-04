@@ -1,7 +1,6 @@
 package com.example.restapp.config.jwt;
 
-import com.example.restapp.model.User;
-import com.example.restapp.service.UserService;
+import com.example.restapp.User.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;

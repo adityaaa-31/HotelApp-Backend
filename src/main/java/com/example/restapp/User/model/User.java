@@ -1,4 +1,4 @@
-package com.example.restapp.model;
+package com.example.restapp.User.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

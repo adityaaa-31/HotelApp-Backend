@@ -1,11 +1,11 @@
-package com.example.restapp.controller;
+package com.example.restapp.Auth.controller;
 
 import com.example.restapp.config.jwt.JwtUtil;
-import com.example.restapp.dto.request.LoginRequestDTO;
-import com.example.restapp.dto.response.LoginResponseDTO;
-import com.example.restapp.dto.request.SignUpRequestDTO;
-import com.example.restapp.model.User;
-import com.example.restapp.repository.UserRepository;
+import com.example.restapp.User.dto.request.LoginRequestDTO;
+import com.example.restapp.User.dto.response.LoginResponseDTO;
+import com.example.restapp.User.dto.request.SignUpRequestDTO;
+import com.example.restapp.User.model.User;
+import com.example.restapp.User.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.restapp.service.UserService;
+import com.example.restapp.User.service.UserService;
 
 import java.util.Optional;
 
@@ -52,6 +52,7 @@ public class AuthController {
                     .password(passwordEncoder.encode(signUpRequest.getPassword()))
                     .build();
 
+            logger.info("User Name::{}", user.getName());
             Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
 
             if(existingUser.isPresent()) {

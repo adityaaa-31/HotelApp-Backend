@@ -1,4 +1,4 @@
-package com.example.restapp.dto.request;
+package com.example.restapp.User.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
