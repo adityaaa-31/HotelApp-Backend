@@ -27,6 +27,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
 	implementation 'org.postgresql:postgresql'
+	implementation 'org.flywaydb:flyway-core'
+
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	runtimeOnly 'com.h2database:h2'
