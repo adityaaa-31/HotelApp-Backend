@@ -33,15 +33,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exceptions ->
-                        exceptions.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/api/auth/sign-up", "/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);;
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptions ->
+                        exceptions.authenticationEntryPoint(authenticationEntryPoint));
 
         return httpSecurity.build();
     }
